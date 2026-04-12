@@ -1,0 +1,661 @@
+:root {
+  --color-primary: #1a1a2e;
+  --color-accent: #e94560;
+  --color-success: #4caf50;
+  --color-bg: #f5f5f7;
+  --color-card: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #6b7280;
+  --color-border: #e5e7eb;
+  --color-nav-bg: #ffffff;
+  --color-eu-blue: #003399;
+  --nav-height: 64px;
+  --header-height: 56px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+  padding: 0 16px;
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.header-back {
+  margin-right: 8px;
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+/* Main Content */
+.app-content {
+  padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
+  min-height: calc(100dvh - var(--header-height));
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  height: calc(var(--nav-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--color-nav-bg);
+  border-top: 1px solid var(--color-border);
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.nav-item.active {
+  color: var(--color-accent);
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Search bar */
+.search-container {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 50;
+  padding: 12px 16px;
+  background: var(--color-bg);
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 16px;
+  background: var(--color-card);
+  color: var(--color-text);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.search-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+}
+
+/* Filter chips */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-card);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.filter-chip.active {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+.filter-select {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-card);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* Kennzeichen card list */
+.kz-list {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kz-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-card);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 1px solid var(--color-border);
+}
+
+.kz-card:active {
+  transform: scale(0.98);
+}
+
+.kz-card.collected {
+  border-left: 3px solid var(--color-success);
+}
+
+.kz-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 36px;
+  padding: 0 10px;
+  background: #fff;
+  border: 2px solid #1a1a2e;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.kz-code::before {
+  content: 'D';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  background: var(--color-eu-blue);
+  color: #fff;
+  font-size: 8px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3px;
+  border-radius: 2px 0 0 2px;
+  font-family: sans-serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.kz-code-text {
+  padding-left: 10px;
+}
+
+.kz-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.kz-name {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kz-state {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.kz-collect-btn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 18px;
+  color: var(--color-text-secondary);
+}
+
+.kz-collect-btn.collected {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: #fff;
+}
+
+/* Detail view */
+.detail-view {
+  padding: 24px 16px;
+}
+
+.detail-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  max-width: 280px;
+  height: 72px;
+  background: #fff;
+  border: 3px solid #1a1a2e;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-plate-eu {
+  width: 36px;
+  height: 100%;
+  background: var(--color-eu-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 6px;
+  flex-shrink: 0;
+}
+
+.detail-plate-eu .stars {
+  font-size: 8px;
+  color: gold;
+  margin-bottom: 2px;
+}
+
+.detail-plate-eu .country {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.detail-plate-code {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 3px;
+}
+
+.detail-meta {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.detail-meta h2 {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.detail-meta .detail-type {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.detail-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.detail-info-item {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.detail-info-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.detail-info-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.detail-collect-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+.detail-collect-btn.collected {
+  background: var(--color-success);
+  color: #fff;
+}
+
+/* Stats view */
+.stats-view {
+  padding: 16px;
+}
+
+.stats-overall {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.stats-overall-count {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+
+.stats-overall-total {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.stats-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 20px 0 12px;
+}
+
+.stats-state-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stats-state-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.stats-state-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stats-state-progress {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.stats-state-count {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  min-width: 48px;
+  text-align: right;
+}
+
+.stats-recent {
+  margin-top: 8px;
+}
+
+.stats-recent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.stats-recent-code {
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+}
+
+.stats-recent-name {
+  flex: 1;
+  margin-left: 12px;
+  font-size: 14px;
+}
+
+.stats-recent-date {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* Map view */
+.map-view {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.map-container svg {
+  width: 100%;
+  height: auto;
+}
+
+.map-container svg path {
+  stroke: #fff;
+  stroke-width: 1;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.map-container svg path:hover {
+  opacity: 0.8;
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.map-legend-gradient {
+  width: 120px;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(to right, #e0e0e0, var(--color-success));
+}
+
+/* Map overlay */
+.map-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.map-overlay-content {
+  background: var(--color-bg);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 500px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 20px 16px calc(20px + var(--safe-bottom));
+}
+
+.map-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.map-overlay-header h3 {
+  font-size: 18px;
+}
+
+.map-overlay-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 4px 8px;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--color-text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.empty-state-text {
+  font-size: 16px;
+}
+
+/* Counter badge */
+.counter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Desktop adjustments */
+@media (min-width: 768px) {
+  .app-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .bottom-nav {
+    max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .kz-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+}
