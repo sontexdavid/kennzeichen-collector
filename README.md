@@ -9,8 +9,11 @@ A web app for collecting German vehicle license plate codes. Perfect for road tr
 - **List** — Searchable list of all 474 German license plate codes with filters by state and collection status
 - **Map** — Interactive map of Germany with progress visualization per state
 - **Statistics** — Overall progress, per-state breakdown, and recently collected plates
+- **Achievements** — 11 milestones covering plates collected (1, 10, 25, 50, 100, 200, 300, all 474) and states completed (1, 5, all 16), with toast notifications when a new one unlocks
+- **Find This challenge** — A dice button in the header opens a modal that picks a random uncollected plate to hunt for, with reroll and "Gefunden" actions
+- **Dark mode** — Theme toggle in the header; also respects the system preference on first visit
 - **Detail view** — Info for each Kennzeichen with license plate styling
-- **Offline support** — Works without internet connection (PWA)
+- **Offline support** — Works without internet connection (PWA); updates roll out automatically on the next visit
 - **Mobile-first** — Designed for use on the go
 
 ## Tech
