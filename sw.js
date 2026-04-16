@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kz-sammeln-v6';
+const CACHE_NAME = 'kz-sammeln-v7';
 const ASSETS = [
   './',
   './index.html',
@@ -27,12 +27,21 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    )
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)));
+    await self.clients.claim();
+    // If this SW is replacing an older one, force-reload controlled windows so
+    // the latest HTML/JS is loaded without the user having to refresh manually.
+    const clients = await self.clients.matchAll({ type: 'window' });
+    for (const client of clients) {
+      try {
+        await client.navigate(client.url);
+      } catch {
+        client.postMessage({ type: 'SW_UPDATED' });
+      }
+    }
+  })());
 });
 
 self.addEventListener('fetch', (event) => {

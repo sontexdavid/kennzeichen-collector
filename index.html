@@ -70,12 +70,19 @@
   <script type="module" src="js/app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        // Poll for updates every 60s while the app is open so deploys are picked up without closing the tab
+        setInterval(() => reg.update().catch(() => {}), 60000);
+      });
       let refreshing = false;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
+      function doReload() {
         if (refreshing) return;
         refreshing = true;
         window.location.reload();
+      }
+      navigator.serviceWorker.addEventListener('controllerchange', doReload);
+      navigator.serviceWorker.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'SW_UPDATED') doReload();
       });
     }
   </script>
