@@ -70,9 +70,13 @@
   <script type="module" src="js/app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').then(reg => {
-        // Poll for updates every 60s while the app is open so deploys are picked up without closing the tab
+      navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(reg => {
+        // Periodic background check while the app is open
         setInterval(() => reg.update().catch(() => {}), 60000);
+        // Check immediately whenever the app comes back into the foreground
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') reg.update().catch(() => {});
+        });
       });
       let refreshing = false;
       function doReload() {
