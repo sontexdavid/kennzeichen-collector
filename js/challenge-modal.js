@@ -75,6 +75,25 @@ export function openChallengeModal() {
     setTimeout(() => { host.innerHTML = ''; }, 180);
   }
 
+  // Swap only the plate, name, and state inside the existing modal body.
+  // Returns true on success; false if the body is missing or on the complete screen.
+  function swapContent(kz) {
+    const body = host.querySelector('.challenge-modal-body');
+    if (!body || body.classList.contains('challenge-complete') || !kz) return false;
+    body.classList.add('swapping');
+    setTimeout(() => {
+      const codeEl = body.querySelector('.detail-plate-code');
+      const nameEl = body.querySelector('.challenge-name');
+      const stateEl = body.querySelector('.challenge-state');
+      if (codeEl) codeEl.textContent = kz.code;
+      if (nameEl) nameEl.textContent = kz.name;
+      if (stateEl) stateEl.textContent = STATES[kz.state] || kz.state;
+      body.dataset.challenge = kz.code;
+      body.classList.remove('swapping');
+    }, 160);
+    return true;
+  }
+
   host.onclick = (e) => {
     const modal = host.querySelector('#challenge-modal');
     if (e.target === modal) { close(); return; }
@@ -87,15 +106,16 @@ export function openChallengeModal() {
     const code = bodyEl ? bodyEl.dataset.challenge : null;
 
     if (action === 'reroll') {
-      rerollChallenge();
-      render();
+      const next = rerollChallenge();
+      if (!swapContent(next)) render();
     } else if (action === 'found' && code) {
       if (!isCollected(code)) {
         toggle(code);
         const unlocked = checkNewlyUnlocked();
         if (unlocked.length) showAchievementToasts(unlocked);
       }
-      render();
+      const next = getCurrentChallenge();
+      if (!swapContent(next)) render();
     } else if (action === 'detail' && code) {
       close();
       location.hash = `#/detail/${code}`;

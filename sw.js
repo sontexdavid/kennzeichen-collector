@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kz-sammeln-v7';
+const CACHE_NAME = 'kz-sammeln-v8';
 const ASSETS = [
   './',
   './index.html',
