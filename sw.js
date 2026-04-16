@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kz-sammeln-v5';
+const CACHE_NAME = 'kz-sammeln-v6';
 const ASSETS = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const ASSETS = [
   './js/achievements.js',
   './js/toast.js',
   './js/challenge.js',
+  './js/challenge-modal.js',
   './js/views/list.js',
   './js/views/detail.js',
   './js/views/stats.js',

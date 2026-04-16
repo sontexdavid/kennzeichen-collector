@@ -5,6 +5,7 @@ import { renderMap } from './views/map.js';
 import { renderAchievements } from './views/achievements.js';
 import { getTheme, toggleTheme } from './theme.js';
 import { initAchievements } from './achievements.js';
+import { openChallengeModal } from './challenge-modal.js';
 
 const content = document.getElementById('app-content');
 const headerBack = document.getElementById('header-back');
@@ -12,6 +13,7 @@ const headerTitle = document.querySelector('.header-title');
 const navItems = document.querySelectorAll('.nav-item');
 const bottomNav = document.getElementById('bottom-nav');
 const themeBtn = document.getElementById('btn-theme');
+const diceBtn = document.getElementById('btn-dice');
 
 function updateThemeIcon() {
   if (!themeBtn) return;
@@ -70,6 +72,11 @@ if (themeBtn) {
   });
 }
 updateThemeIcon();
+
+// Dice (open challenge modal)
+if (diceBtn) {
+  diceBtn.addEventListener('click', () => openChallengeModal());
+}
 
 // Initialize achievements store (seed "seen" set so existing plates don't retroactively fire toasts)
 initAchievements();
