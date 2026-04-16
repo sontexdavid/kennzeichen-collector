@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kz-sammeln-v1';
+const CACHE_NAME = 'kz-sammeln-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const ASSETS = [
   './js/app.js',
   './js/data.js',
   './js/store.js',
+  './js/theme.js',
   './js/views/list.js',
   './js/views/detail.js',
   './js/views/stats.js',

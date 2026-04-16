@@ -9,6 +9,17 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚗</text></svg>">
+  <script>
+    (function() {
+      try {
+        var stored = localStorage.getItem('kz-theme');
+        var theme = (stored === 'dark' || stored === 'light')
+          ? stored
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <header class="app-header">
@@ -16,6 +27,7 @@
       <button class="btn-back" aria-label="Zurueck">&#8592;</button>
     </div>
     <h1 class="header-title">Kennzeichen Sammeln</h1>
+    <button class="btn-theme" id="btn-theme" aria-label="Design wechseln">🌙</button>
   </header>
 
   <main id="app-content" class="app-content"></main>
