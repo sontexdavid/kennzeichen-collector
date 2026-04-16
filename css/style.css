@@ -677,6 +677,166 @@ body {
   font-size: 16px;
 }
 
+/* Achievements view */
+.ach-view {
+  padding: 16px;
+}
+
+.ach-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.ach-card {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.ach-card.earned {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 1px var(--color-success) inset;
+}
+
+.ach-card.locked {
+  opacity: 0.65;
+}
+
+.ach-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  background: var(--color-bg);
+  border-radius: 12px;
+}
+
+.ach-card.earned .ach-icon {
+  background: rgba(76, 175, 80, 0.15);
+}
+
+.ach-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ach-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.ach-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.ach-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.ach-progress-row .progress-bar {
+  flex: 1;
+}
+
+.ach-card.earned .progress-bar-fill {
+  background: var(--color-success);
+}
+
+.ach-progress-text {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  min-width: 52px;
+  text-align: right;
+}
+
+/* Toast notifications */
+.toast-container {
+  position: fixed;
+  top: calc(var(--header-height) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  width: calc(100% - 32px);
+  max-width: 400px;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--color-card);
+  border: 1px solid var(--color-success);
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: rgba(76, 175, 80, 0.15);
+  border-radius: 10px;
+}
+
+.toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-success);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.toast-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Counter badge */
 .counter-badge {
   display: inline-flex;

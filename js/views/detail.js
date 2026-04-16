@@ -1,5 +1,7 @@
 import kennzeichen, { STATES } from '../data.js';
 import { isCollected, toggle } from '../store.js';
+import { checkNewlyUnlocked } from '../achievements.js';
+import { showAchievementToasts } from '../toast.js';
 
 export function renderDetail(container, code) {
   const kz = kennzeichen.find(k => k.code === code);
@@ -53,5 +55,7 @@ export function renderDetail(container, code) {
     const nowCollected = toggle(kz.code);
     btn.classList.toggle('collected', nowCollected);
     btn.innerHTML = nowCollected ? '✓ Gesammelt' : '○ Sammeln';
+    const unlocked = checkNewlyUnlocked();
+    if (unlocked.length) showAchievementToasts(unlocked);
   });
 }

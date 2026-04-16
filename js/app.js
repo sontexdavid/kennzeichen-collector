@@ -2,7 +2,9 @@ import { renderList } from './views/list.js';
 import { renderDetail } from './views/detail.js';
 import { renderStats } from './views/stats.js';
 import { renderMap } from './views/map.js';
+import { renderAchievements } from './views/achievements.js';
 import { getTheme, toggleTheme } from './theme.js';
+import { initAchievements } from './achievements.js';
 
 const content = document.getElementById('app-content');
 const headerBack = document.getElementById('header-back');
@@ -31,7 +33,7 @@ function route() {
   bottomNav.style.display = isDetail ? 'none' : '';
 
   // Update title
-  const titles = { list: 'Kennzeichen Sammeln', map: 'Karte', stats: 'Statistik', detail: 'Detail' };
+  const titles = { list: 'Kennzeichen Sammeln', map: 'Karte', stats: 'Statistik', detail: 'Detail', achievements: 'Erfolge' };
   headerTitle.textContent = titles[path] || 'Kennzeichen Sammeln';
 
   // Render view
@@ -49,6 +51,9 @@ function route() {
     case 'map':
       renderMap(content);
       break;
+    case 'achievements':
+      renderAchievements(content);
+      break;
     default:
       renderList(content);
   }
@@ -65,6 +70,9 @@ if (themeBtn) {
   });
 }
 updateThemeIcon();
+
+// Initialize achievements store (seed "seen" set so existing plates don't retroactively fire toasts)
+initAchievements();
 
 // Route on hash change
 window.addEventListener('hashchange', route);

@@ -1,5 +1,7 @@
 import kennzeichen, { STATES } from '../data.js';
 import { getCollected, isCollected, toggle } from '../store.js';
+import { checkNewlyUnlocked } from '../achievements.js';
+import { showAchievementToasts } from '../toast.js';
 
 const STATE_PATHS = {
   SH: "M 245,20 L 270,15 290,25 305,45 295,80 285,95 275,85 260,90 240,80 230,60 235,35 Z",
@@ -142,6 +144,8 @@ function showStateOverlay(stateCode) {
       collectBtn.classList.toggle('collected', nowCollected);
       collectBtn.innerHTML = nowCollected ? '✓' : '○';
       collectBtn.closest('.kz-card').classList.toggle('collected', nowCollected);
+      const unlocked = checkNewlyUnlocked();
+      if (unlocked.length) showAchievementToasts(unlocked);
       return;
     }
     const card = e.target.closest('.kz-card');

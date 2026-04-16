@@ -1,5 +1,7 @@
 import kennzeichen, { STATES } from '../data.js';
 import { isCollected, toggle } from '../store.js';
+import { checkNewlyUnlocked } from '../achievements.js';
+import { showAchievementToasts } from '../toast.js';
 
 let currentFilter = 'all'; // 'all' | 'collected' | 'open'
 let currentState = '';
@@ -109,6 +111,8 @@ export function renderList(container) {
       collectBtn.classList.toggle('collected', nowCollected);
       collectBtn.innerHTML = nowCollected ? '✓' : '○';
       collectBtn.closest('.kz-card').classList.toggle('collected', nowCollected);
+      const unlocked = checkNewlyUnlocked();
+      if (unlocked.length) showAchievementToasts(unlocked);
       return;
     }
     // Card navigation
